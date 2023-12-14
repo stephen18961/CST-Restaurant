@@ -13,6 +13,7 @@
         return {
             msg : ""
         };
+        
     },
     methods : {
         getReponse(){
