@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Hello from '@/components/Hello.vue'
-import MenuItemList from '../components/MenuItemList.vue';
+import MenuItemList from '../components/MenuItemList.vue'
+import MenuItemAdd from '../components/MenuItemAdd.vue'
+import MenuItemEdit from '../components/MenuItemEdit.vue'
 
 const routes = [
   {
@@ -17,16 +19,10 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
-  {
-    path: '/hello',
-    name: 'hello',
-    component: Hello,
-  },
-  {
-    path: '/menu',
-    name: 'menu',
-    component: MenuItemList
-  }
+  { path: '/hello', name: 'hello', component: Hello },
+  { path: '/menu', name: 'menu', component: MenuItemList },
+  { path: '/add', name: 'add', component: MenuItemAdd },
+  { path: '/menu_items/:id/edit', name: 'editMenuItem', component: MenuItemEdit },
 ]
 
 const router = createRouter({
