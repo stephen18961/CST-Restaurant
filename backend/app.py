@@ -62,10 +62,49 @@ class Transaction(db.Model):
 def greetings():
     return("Hello, world! HELLO HELLO")
 
-@app.route('/menu_items', methods=['GET'])
-def get_menu_items():
-    menu_items = MenuItem.query.all()
-    return jsonify({'menu_items': [{'id': item.id, 'name': item.name, 'price': item.price, 'category_id': item.category_id, 'image': item.image} for item in menu_items]})
+# Menu Items Route Handlers
+@app.route('/menu_items', methods=['GET', 'POST'])
+def menu_items():
+    response_object = {'status': 'success'}
+    if request.method == 'POST':
+        data = request.json
+        new_menu_item = MenuItem(name=data['name'], price=data['price'], category_id=data['category_id'], image=data.get('image'))
+        db.session.add(new_menu_item)
+        db.session.commit()
+        response_object['message'] = 'Menu item added successfully'
+        response_object['id'] = new_menu_item.id
+    else:
+        menu_items = MenuItem.query.all()
+        response_object['menu_items'] = [{'id': item.id, 'name': item.name, 'price': item.price, 'category_id': item.category_id, 'image': item.image} for item in menu_items]
+
+    return jsonify(response_object)
+
+
+@app.route('/menu_items/<int:item_id>', methods=['PUT', 'DELETE'])
+def single_menu_item(item_id):
+    response_object = {'status': 'success'}
+    menu_item = MenuItem.query.get(item_id)
+
+    if request.method == 'PUT':
+        if menu_item:
+            data = request.json
+            menu_item.name = data['name']
+            menu_item.price = data['price']
+            menu_item.category_id = data['category_id']
+            menu_item.image = data.get('image')
+            db.session.commit()
+            response_object['message'] = 'Menu item updated successfully'
+        else:
+            response_object['error'] = 'Menu item not found'
+    elif request.method == 'DELETE':
+        if menu_item:
+            db.session.delete(menu_item)
+            db.session.commit()
+            response_object['message'] = 'Menu item deleted successfully'
+        else:
+            response_object['error'] = 'Menu item not found'
+
+    return jsonify(response_object)
 
 
 if __name__ == "__main__":
