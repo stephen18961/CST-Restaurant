@@ -13,6 +13,9 @@ export default {
   name: 'HomeView',
   components: {
     HelloWorld
+  },
+  mounted() {
+    document.title = "Home"
   }
 }
 </script>

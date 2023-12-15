@@ -13,7 +13,7 @@
         return {
             msg : ""
         };
-        
+
     },
     methods : {
         getReponse(){
@@ -30,6 +30,9 @@
     },
     created(){
         this.getReponse();
+    },
+    mounted(){
+        document.title = "Hello"
     }
   }
   </script>

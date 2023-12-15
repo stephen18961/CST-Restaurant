@@ -8,4 +8,4 @@ import "bootstrap"
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-Vue.createApp(App).use(router, VueAxios, axios).mount('#app')
+Vue.createApp(App).use(router, VueAxios, axios).mount('#app')x
