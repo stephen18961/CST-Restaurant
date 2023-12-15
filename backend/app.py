@@ -115,18 +115,12 @@ def single_menu_item(item_id):
 def serve_static(filename):
     return send_from_directory('static/images', filename)
 
-# route to fetch categories
+# route for fetching category
 @app.route('/categories', methods=['GET'])
 def get_categories():
     categories = Category.query.all()
-    category_list = [
-        {
-            'id': category.category_id,
-            'name': category.name
-        }
-        for category in categories
-    ]
-    return jsonify({'categories': category_list})
+    categories_list = [{'category_id': category.category_id, 'name': category.name} for category in categories]
+    return jsonify({'categories': categories_list})
 
 
 if __name__ == "__main__":
