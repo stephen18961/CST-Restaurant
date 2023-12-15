@@ -58,6 +58,8 @@ export default {
         // Redirect to the menu item list or perform other actions after successful addition
         this.$router.push('/menu-items');
 
+        this.$router.go(-1)
+
         // Log the response from the backend (optional)
         console.log(response.data);
       } catch (error) {
