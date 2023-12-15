@@ -6,7 +6,7 @@
         <!-- Link to the edit page with the item's ID -->
         <div class="row g-0">
           <div class="col-md-4">
-            <img :src="item.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;">
+            <img :src="'http://localhost:5000/static/images/' + item.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;">
           </div>
           <div class="col-md-8">
             <div class="card-body">

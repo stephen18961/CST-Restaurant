@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request 
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -57,6 +57,9 @@ class Transaction(db.Model):
     amount_paid = db.Column(db.Integer, nullable=False)
 
 # ROUTES -------------------------------------------------------------------------------------------------
+@app.route('/')
+def hello():
+    return("Hello World!")
 
 @app.route('/hello', methods=['GET'])
 def greetings():
@@ -73,7 +76,7 @@ def menu_items():
         db.session.commit()
         response_object['message'] = 'Menu item added successfully'
         response_object['id'] = new_menu_item.id
-    else:
+    else:   
         menu_items = MenuItem.query.all()
         response_object['menu_items'] = [{'id': item.id, 'name': item.name, 'price': item.price, 'category_id': item.category_id, 'image': item.image} for item in menu_items]
 
@@ -105,6 +108,11 @@ def single_menu_item(item_id):
             response_object['error'] = 'Menu item not found'
 
     return jsonify(response_object)
+
+@app.route('/static/images/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('static/images', filename)
+
 
 
 if __name__ == "__main__":
