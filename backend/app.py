@@ -14,7 +14,6 @@ CORS(app, resources={r"/*":{'origins':"*"}})
 # app.config.from_object(__name__)
 migrate = Migrate(app, db)
 
-
 class Category(db.Model):
     __tablename__ = 'category'
     category_id = db.Column(db.Integer, primary_key=True)
@@ -56,7 +55,9 @@ class Transaction(db.Model):
     payment_method = db.Column(db.String(50), nullable=False)
     amount_paid = db.Column(db.Integer, nullable=False)
 
-# ROUTES -------------------------------------------------------------------------------------------------
+###########################################################################################################
+# ROUTES -------------------------------------------------------------------------------------------------#
+###########################################################################################################
 @app.route('/')
 def hello():
     return("Hello World!")
@@ -82,7 +83,7 @@ def menu_items():
 
     return jsonify(response_object)
 
-
+# return all menu
 @app.route('/menu_items/<int:item_id>', methods=['PUT', 'DELETE'])
 def single_menu_item(item_id):
     response_object = {'status': 'success'}
@@ -109,10 +110,23 @@ def single_menu_item(item_id):
 
     return jsonify(response_object)
 
+# ability to show images
 @app.route('/static/images/<path:filename>')
 def serve_static(filename):
     return send_from_directory('static/images', filename)
 
+# route to fetch categories
+@app.route('/categories', methods=['GET'])
+def get_categories():
+    categories = Category.query.all()
+    category_list = [
+        {
+            'id': category.category_id,
+            'name': category.name
+        }
+        for category in categories
+    ]
+    return jsonify({'categories': category_list})
 
 
 if __name__ == "__main__":
