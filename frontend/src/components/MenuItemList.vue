@@ -1,6 +1,14 @@
 <template>
   <div>
     <h1 class="mt-4 mb-3">Menu Items</h1>
+
+    <!-- Buttons for filtering by category -->
+    <button @click="filterByCategory(null)">All</button>
+    <button v-for="category in categories" :key="category.id" @click="filterByCategory(category.id)">
+      {{ category.name }}
+    </button>
+
+
     <div v-for="item in menuItems" :key="item.id" class="card mb-3">
       <router-link :to="{ name: 'editMenuItem', params: { id: item.id } }" class="text-decoration-none">
         <!-- Link to the edit page with the item's ID -->
@@ -27,20 +35,47 @@ export default {
   data() {
     return {
       menuItems: [],
+      categories: [],
+      selectedCategory: null,
     };
   },
   mounted() {
+    this.fetchCategories();
     this.fetchMenuItems();
   },
   methods: {
-    fetchMenuItems() {
-      axios.get('http://localhost:5000/menu_items')
+    fetchCategories() {
+      axios.get('http://localhost:5000/categories')
+        .then(response => {
+          this.categories = response.data.categories;
+        })
+        .catch(error => {
+          console.error('Error fetching categories:', error);
+        });
+    },
+    fetchMenuItems(categoryId) {
+      const url = categoryId
+        ? `http://localhost:5000/menu_items?category_id=${categoryId}`
+        : 'http://localhost:5000/menu_items';
+
+      axios.get(url)
         .then(response => {
           this.menuItems = response.data.menu_items;
         })
         .catch(error => {
           console.error('Error fetching menu items:', error);
         });
+    },
+    filterByCategory(categoryId) {
+      this.selectedCategory = categoryId;
+      this.fetchMenuItems(categoryId);
+    },
+  },
+  computed: {
+    filteredMenuItems() {
+      return this.selectedCategory
+        ? this.menuItems.filter(item => item.category_id === this.selectedCategory)
+        : this.menuItems;
     },
   },
 };

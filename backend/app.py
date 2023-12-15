@@ -78,9 +78,20 @@ def menu_items():
         response_object['message'] = 'Menu item added successfully'
         response_object['id'] = new_menu_item.id
     else:   
-        menu_items = MenuItem.query.all()
-        response_object['menu_items'] = [{'id': item.id, 'name': item.name, 'price': item.price, 'category_id': item.category_id, 'image': item.image} for item in menu_items]
+        category_id = request.args.get('category_id')
 
+        if category_id:
+            # Filter menu items by category_id
+            menu_items = MenuItem.query.filter_by(category_id=category_id).all()
+        else:
+            # Retrieve all menu items if no category_id is provided
+            menu_items = MenuItem.query.all()
+
+        response_object['menu_items'] = [
+            {'id': item.id, 'name': item.name, 'price': item.price, 'category_id': item.category_id, 'image': item.image}
+            for item in menu_items
+        ]
+        
     return jsonify(response_object)
 
 # return all menu
@@ -88,7 +99,7 @@ def menu_items():
 def single_menu_item(item_id):
     response_object = {'status': 'success'}
     menu_item = MenuItem.query.get(item_id)
-
+    
     if request.method == 'PUT':
         if menu_item:
             data = request.json
