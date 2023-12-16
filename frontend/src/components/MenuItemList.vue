@@ -1,15 +1,29 @@
+<!-- MenuItemList.vue -->
+
 <template>
   <div>
     <h1 class="mt-4 mb-3">Menu Items</h1>
 
-    <!-- Buttons for filtering by category -->
-    <button @click="filterByCategory(null)">All</button>
-    <button v-for="category in categories" :key="category.id" @click="filterByCategory(category.category_id)">
+    <div class="container flex">
+      <!-- Buttons for filtering by category -->
+      <button
+        @click="menuStore.filterByCategory(null)"
+        :class="{ 'btn btn-secondary mx-1': menuStore.selectedCategory !== null, 'btn btn-primary mx-1': menuStore.selectedCategory === null }"
+      >
+        All
+      </button>
+      <button
+        v-for="category in menuStore.categories"
+        :key="category.id"
+        @click="menuStore.filterByCategory(category.category_id)"
+        :class="{ 'btn btn-secondary mx-1': menuStore.selectedCategory !== category.category_id, 'btn btn-primary mx-1': menuStore.selectedCategory === category.category_id }"
+      >
+        {{ category.name }}
+      </button>
+    </div>
 
-      {{ category.name }}
-    </button>
-
-    <div v-for="item in filteredMenuItems" :key="item.id" class="card mb-3">
+    <!-- Menu Display -->
+    <div v-for="item in menuStore.filteredMenuItems" :key="item.id" class="card mb-3">
       <router-link :to="{ name: 'editMenuItem', params: { id: item.id } }" class="text-decoration-none">
         <!-- Link to the edit page with the item's ID -->
         <div class="row g-0">
@@ -29,52 +43,22 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { useMenuStore } from '@/stores/menu';
+import { onMounted } from 'vue';
 
 export default {
-  data() {
-    return {
-      menuItems: [],
-      categories: [],
-      selectedCategory: null,
-    };
-  },
-  mounted() {
-    this.fetchCategories();
-    this.fetchMenuItems();
-  },
-  methods: {
-    fetchCategories() {
-      axios.get('http://localhost:5000/categories')
-        .then(response => {
-          this.categories = response.data.categories;
-        })
-        .catch(error => {
-          console.error('Error fetching categories:', error);
-        });
-    },
-    fetchMenuItems() {
-      axios.get('http://localhost:5000/menu_items')
-        .then(response => {
-          this.menuItems = response.data.menu_items;
-          console.log('Menu Items:', this.menuItems); // Log the menu items for debugging
-        })
-        .catch(error => {
-          console.error('Error fetching menu items:', error);
-        });
-    },
-    filterByCategory(categoryId) {
-      this.selectedCategory = categoryId;
-    },
-  },
-  computed: {
-    filteredMenuItems() {
-      console.log('Selected Category:', this.selectedCategory); // Log the selected category for debugging
+  setup() {
+    const menuStore = useMenuStore();
 
-      return this.selectedCategory
-        ? this.menuItems.filter(item => item.category_id === this.selectedCategory)
-        : this.menuItems;
-    },
+    // Call the actions when the component is mounted
+    onMounted(() => {
+      menuStore.fetchCategories();
+      menuStore.fetchMenuItems();
+    });
+
+    return {
+      menuStore,
+    };
   },
 };
 </script>

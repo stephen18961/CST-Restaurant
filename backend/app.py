@@ -91,16 +91,28 @@ def menu_items():
             {'id': item.id, 'name': item.name, 'price': item.price, 'category_id': item.category_id, 'image': item.image}
             for item in menu_items
         ]
-        
+
     return jsonify(response_object)
 
-# return all menu
-@app.route('/menu_items/<int:item_id>', methods=['PUT', 'DELETE'])
+# return menu by id
+@app.route('/menu_items/<int:item_id>', methods=['PUT', 'DELETE', 'POST', 'GET'])
 def single_menu_item(item_id):
     response_object = {'status': 'success'}
     menu_item = MenuItem.query.get(item_id)
     
-    if request.method == 'PUT':
+    if request.method == 'GET':
+        if menu_item:
+            response_object['menu_item'] = {
+                'id': menu_item.id,
+                'name': menu_item.name,
+                'price': menu_item.price,
+                'category_id': menu_item.category_id,
+                'image': menu_item.image,
+                # Add other fields as needed
+            }
+        else:
+            response_object['error'] = 'Menu item not found'
+    elif request.method == 'PUT':
         if menu_item:
             data = request.json
             menu_item.name = data['name']
