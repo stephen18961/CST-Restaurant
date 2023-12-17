@@ -22,23 +22,45 @@
       </button>
     </div>
 
-    <!-- Menu Display -->
-    <div v-for="item in menuStore.filteredMenuItems" :key="item.id" class="card mb-3">
-      <router-link :to="{ name: 'editMenuItem', params: { id: item.id } }" class="text-decoration-none">
-        <!-- Link to the edit page with the item's ID -->
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img :src="'http://localhost:5000/static/images/' + item.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{ item.name }}</h5>
-              <p class="card-text">Price: Rp{{ item.price }},00</p>
-            </div>
-          </div>
-        </div>
-      </router-link>
-    </div>
+<!-- Menu Display as Table -->
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="item in menuStore.filteredMenuItems" :key="item.id">
+      <td>
+        <img :src="'http://localhost:5000/static/images/' + item.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;">
+      </td>
+      <td>{{ item.name }}</td>
+      <td>Rp{{ item.price }},00</td>
+      <td>
+        <button @click="openUpdateModal(item)" class="btn btn-success">
+              Update
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <div>
+      <h1>Menu Items</h1>
+      <ul>
+        <li v-for="item in menuStore.filteredMenuItems" :key="item.id">
+          <img :src="'http://localhost:5000/static/images/' + item.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;">
+          {{ item.name }} - {{ item.price }}
+          <router-link :to="{ name: 'editMenuItem', params: { id: item.id }}">Edit</router-link>
+          <button @click="deleteMenuItem(item.id)">Delete</button>
+        </li>
+      </ul>
+</div> -->
+
+
   </div>
 </template>
 

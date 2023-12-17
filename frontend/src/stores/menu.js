@@ -1,3 +1,5 @@
+// stores/menu.js
+
 // Import Pinia
 import { defineStore } from 'pinia';
 import axios from 'axios';

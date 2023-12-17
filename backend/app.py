@@ -3,57 +3,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_migrate import Migrate
-# from models import Category, MenuItem, OrderStatus, Order, OrderItem, Transaction
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@127.0.0.1/cstresto'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-CORS(app, resources={r"/*":{'origins':"*"}})
-# CORS(app, resources={r'/*':{'origins': 'http://localhost:8080',"allow_headers": "Access-Control-Allow-Origin"}})
-# app.config.from_object(__name__)
-migrate = Migrate(app, db)
-
-class Category(db.Model):
-    __tablename__ = 'category'
-    category_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-
-class MenuItem(db.Model):
-    __tablename__ = 'menu_item'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    price = db.Column(db.Integer, nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.category_id'), nullable=False)
-    image = db.Column(db.String(255))
-
-class Invoice(db.Model):
-    __tablename__ = 'invoice'
-    id = db.Column(db.Integer, primary_key=True)
-    table_number = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp(), nullable=False)
-    total_amount = db.Column(db.Integer, nullable=False)
-    status_id = db.Column(db.Integer, db.ForeignKey('status.id'), nullable=False)
-
-class Status(db.Model):
-    __tablename__ = 'status'
-    id = db.Column(db.Integer, primary_key=True)
-    status = db.Column(db.String(50), nullable=False)
-
-class InvoiceDetail(db.Model):
-    __tablename__ = 'invoice_detail'
-    id = db.Column(db.Integer, primary_key=True)
-    invoice_id = db.Column(db.Integer, db.ForeignKey('invoice.id'), nullable=False)
-    menu_item_id = db.Column(db.Integer, db.ForeignKey('menu_item.id'), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
-    subtotal = db.Column(db.Integer, nullable=False)
-
-class Transaction(db.Model):
-    __tablename__ = 'transaction'
-    id = db.Column(db.Integer, primary_key=True)
-    invoice_id = db.Column(db.Integer, db.ForeignKey('invoice.id'), nullable=False)
-    payment_method = db.Column(db.String(50), nullable=False)
-    amount_paid = db.Column(db.Integer, nullable=False)
+from models import *
 
 ###########################################################################################################
 # ROUTES -------------------------------------------------------------------------------------------------#
@@ -145,6 +95,13 @@ def get_categories():
     categories_list = [{'category_id': category.category_id, 'name': category.name} for category in categories]
     return jsonify({'categories': categories_list})
 
+# route for tables
+@app.route('/tables', methods=['GET'])
+def get_tables():
+    tables = TableStatus.query.all()
+    print(tables)
+    tables_list = [{'table_id' : table.id, 'occupied': False if table.occupied == 0 else True} for table in tables]
+    return jsonify({'tables_list': tables_list})
 
 if __name__ == "__main__":
     app.run(debug=True)
