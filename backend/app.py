@@ -132,5 +132,65 @@ def post_order():
 
     return ('Successfully added to database :DDDDD')
 
+@app.route('/invoices', methods=['GET'])
+def get_invoices():
+    invoices = Invoice.query.all()
+    invoices_list = []
+
+    for invoice in invoices:
+        invoice_data = {
+            'id': invoice.id,
+            'table_number': invoice.table_number,
+            'created_at': invoice.created_at.isoformat(),  # Convert timestamp to string
+            'total_amount': invoice.total_amount,
+            'status_id': invoice.status_id
+        }
+        invoices_list.append(invoice_data)
+
+    # print(invoices_list)
+    return jsonify({'invoices': invoices_list})
+
+# Route to fetch invoice details based on invoice ID
+@app.route('/invoices/<int:invoice_id>/details', methods=['GET'])
+def get_invoice_details(invoice_id):
+    invoice_details = InvoiceDetail.query.filter_by(invoice_id=invoice_id).all()
+
+    if not invoice_details:
+        return jsonify({'message': 'No details found for the given invoice ID'}), 404
+
+    details_list = []
+    for detail in invoice_details:
+        detail_data = {
+            'id': detail.id,
+            'invoice_id': detail.invoice_id,
+            'menu_item_id': detail.menu_item_id
+            # Add other fields as needed
+        }
+        details_list.append(detail_data)
+
+    return jsonify({'invoice_details': details_list})
+
+# Route to fetch an invoice based on invoice ID
+@app.route('/invoices/<int:invoice_id>', methods=['GET'])
+def get_invoice(invoice_id):
+    try:
+        invoice = Invoice.query.filter_by(id=invoice_id).first()
+
+        if not invoice:
+            return jsonify({'message': 'Invoice not found'}), 404
+
+        invoice_data = {
+            'id': invoice.id,
+            'table_number': invoice.table_number,
+            'created_at': invoice.created_at.isoformat(),
+            'total_amount': invoice.total_amount,
+            'status_id': invoice.status_id
+        }
+
+        return jsonify({'invoice': invoice_data})
+
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500
+
 if __name__ == "__main__":
     app.run(debug=True)

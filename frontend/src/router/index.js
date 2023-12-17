@@ -4,6 +4,8 @@ import MenuItemList from '../components/MenuItemList.vue'
 import MenuItemAdd from '../components/MenuItemAdd.vue'
 import MenuItemEdit from '../components/MenuItemEdit.vue'
 import MenuOrder from '@/components/MenuOrder.vue'
+import OrderList from '@/components/OrderList.vue'
+import Payment from '@/components/Payment.vue'
 
 const routes = [
   {
@@ -14,6 +16,9 @@ const routes = [
   { path: '/menu', name: 'menu', component: MenuOrder },
   { path: '/add', name: 'add', component: MenuItemAdd },
   { path: '/menu_items/:id/edit', name: 'editMenuItem', component: MenuItemEdit },
+  { path: '/orders', name: 'order', component:OrderList},
+  { path: '/payment', name: 'payment', component:Payment},
+  
 ]
 
 const router = createRouter({
