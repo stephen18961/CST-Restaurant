@@ -16,20 +16,21 @@
       <h4>#ORDER</h4>
       <div>
         Selected table: {{ orderStore.currentOpenOrder.table_id }}
+        <hr>
         Orders:
         <table class="table">
           <tr>
             <th scope="col">ItemID</th>
             <th scope="col">Image</th>
             <th scope="col">Name</th>
-            <th scope="col"></th>
+            <th scope="col">Price</th>
             <th scope="col"></th>
           </tr>
-          <tr v-for="items in orderStore.orderedItems">
+          <tr v-for="items in orderStore.orderedItems" class="border">
             <td>{{ items.id }}</td>
-            <td>{{ items.image }}</td>
+            <td><img :src="'http://localhost:5000/static/images/' + items.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;"></td>
             <td>{{ items.name }}</td>
-            <td>{{ items. }}</td>
+            <td>{{ items.price }}</td>
             <td></td>
           </tr>
         </table>

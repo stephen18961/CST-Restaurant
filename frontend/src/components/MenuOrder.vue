@@ -70,7 +70,7 @@ export default {
         addItemToOrder(item) {
             const menuStore = useOrderStore();
 
-            console.log(item.id);
+            // console.log(item.id);
             menuStore.addItemToOrder(item);
         }
     }
