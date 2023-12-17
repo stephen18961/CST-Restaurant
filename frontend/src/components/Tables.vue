@@ -52,6 +52,7 @@ export default {
         display: inline; background: none; border: none; margin: 0; padding: 0; font: inherit; cursor: pointer; outline: inherit;
     }
     span.table-no {
+        display: block;
         position: relative;
         top: 92px;
         left: -1px;

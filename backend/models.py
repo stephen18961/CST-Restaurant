@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 CORS(app, resources={r"/*":{'origins':"*"}})
 # CORS(app, resources={r'/*':{'origins': 'http://localhost:8080',"allow_headers": "Access-Control-Allow-Origin"}})
-# app.config.from_object(__name__)
+app.config.from_object(__name__)
 migrate = Migrate(app, db)
 
 class Category(db.Model):
@@ -50,8 +50,6 @@ class InvoiceDetail(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     invoice_id = db.Column(db.Integer, db.ForeignKey('invoice.id'), nullable=False)
     menu_item_id = db.Column(db.Integer, db.ForeignKey('menu_item.id'), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
-    subtotal = db.Column(db.Integer, nullable=False)
 
 class Transaction(db.Model):
     __tablename__ = 'transaction'

@@ -37,7 +37,7 @@
             <img :src="'http://localhost:5000/static/images/' + item.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;">
         </td>
         <td>{{ item.name }}</td>
-        <td>Rp{{ item.price }},00</td>
+        <td>Rp {{ item.price }}</td>
         <td>
             <button @click="addItemToOrder(item)" class="btn btn-primary">
                 Add

@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="">
-      <h2>Table List</h2>
+      <h2 class="d-flex justify-content-start text-uppercase">Table List</h2>
       <Tables></Tables>
     </div>
   </div>
@@ -37,3 +37,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+* {
+  color: black;
+}
+h2 {
+  border-bottom: 1px solid #ECEDED;
+  margin: 2%;
+  padding-bottom: 3%;
+}
+</style>

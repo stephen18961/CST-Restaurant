@@ -103,5 +103,34 @@ def get_tables():
     tables_list = [{'table_id' : table.id, 'occupied': False if table.occupied == 0 else True} for table in tables]
     return jsonify({'tables_list': tables_list})
 
+# route for posting order
+@app.route('/order', methods=['POST'])
+def post_order():
+    if request.method == 'POST':
+        data = request.json
+        inv_data = data['invoiceData']
+
+        table_status = TableStatus.query.get(inv_data['table_number'])
+        table_status.occupied = 1
+        db.session.commit()
+        
+        new_invoice = Invoice(table_number=inv_data['table_number'], created_at=datetime.now(), total_amount=inv_data['total_amount'], status_id=inv_data['status_id'])
+        db.session.add(new_invoice)
+        db.session.commit()
+
+        invoice_idd = db.session.query(Invoice.id).order_by(Invoice.id.desc()).first()
+        invoice_idd = int(invoice_idd[0])
+
+        inv_detail = data['invoiceDetailData']
+        n_items = len(inv_detail)
+
+        for i in range(n_items):
+            new_invoice_detail = InvoiceDetail(invoice_id=invoice_idd, menu_item_id=inv_detail[i]['menu_item_id'])
+            db.session.add(new_invoice_detail)
+
+        db.session.commit()
+
+    return ('Successfully added to database :DDDDD')
+
 if __name__ == "__main__":
     app.run(debug=True)
