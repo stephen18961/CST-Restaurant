@@ -31,7 +31,7 @@
             <td><img :src="'http://localhost:5000/static/images/' + items.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;"></td>
             <td>{{ items.name }}</td>
             <td>{{ items.price }}</td>
-            <td><button @click="removeItemFromOrder(item)" class="btn btn-danger btn-sm">Remove</button></td>
+            <td><button @click="removeItem(items.id)" class="btn btn-danger btn-sm">Remove</button></td>
           </tr>
         </table>
       </div>
@@ -59,6 +59,13 @@ export default {
     removeItemFromOrder(item) {
       const orderStore = useOrderStore();
       orderStore.remove
+    },
+    removeItem(itemId) {
+      const orderStore = useOrderStore();
+      const index = orderStore.orderedItems.findIndex(items => items.id === itemId);
+      if (index !== -1) {
+        orderStore.orderedItems.splice(index, 1);
+      }
     }
   }
 }

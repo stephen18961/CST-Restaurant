@@ -15,9 +15,6 @@ export const useOrderStore = defineStore({
     actions: {
         addItemToOrder(item) {
             this.orderedItems.push(item);
-        },  
-        removeItemFromOrder(item) {
-            this.orderedItems.filter(item => item.id !== id);
-        }
+        },
     }
 })
