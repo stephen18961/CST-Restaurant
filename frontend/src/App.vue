@@ -29,6 +29,7 @@
         <CurrentOrder v-if="currentRoute === '/menu'"></CurrentOrder>
         <!-- <OrderDetails v-if="currentRoute ==='/orders' "></OrderDetails> -->
         <InvoiceDetail v-if="currentRoute === '/orders'"></InvoiceDetail>
+        <PaymentRight v-if="currentRoute === '/payment'"></PaymentRight>
       </div>
     </div>
     </div>
@@ -41,6 +42,7 @@ import { onMounted } from 'vue';
 import CurrentOrder from '@/components/CurrentOrder.vue'
 import axios from 'axios';
 import InvoiceDetail from './components/InvoiceDetail.vue';
+import PaymentRight from './components/PaymentRight.vue';
 
 export default {
   data() {
@@ -51,7 +53,8 @@ export default {
   components: {
     // Payment
     CurrentOrder,
-    InvoiceDetail
+    InvoiceDetail,
+    PaymentRight
   },
   setup() {
     const orderStore = useOrderStore();

@@ -187,6 +187,7 @@ def get_invoice(invoice_id):
             'status_id': invoice.status_id
         }
 
+        print(invoice_data)
         return jsonify({'invoice': invoice_data})
 
     except Exception as e:

@@ -31,7 +31,6 @@
 
 <script>
 import { useInvoiceStore } from '@/stores/invoice';
-import axios from 'axios';
 import { onMounted } from 'vue';
 
 export default {
@@ -45,5 +44,10 @@ export default {
 
         return { invoiceStore };
     },
+    methods: {
+        confirmPayment() {
+            return
+        }
+    }
 };
 </script>

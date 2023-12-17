@@ -1,7 +1,10 @@
 <template>
-    <div>
-        <h1>Orders List</h1>
-        <table>
+    <div class="container">
+        <div class="">
+            <h2 class="d-flex justify-content-start text-uppercase">Orders List</h2>
+            <Tables></Tables>
+        </div>
+        <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -43,3 +46,20 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+* {
+  color: black;
+}
+
+h2 {
+  border-bottom: 1px solid #ECEDED;
+  margin: 2%;
+  padding-bottom: 3%;
+}
+
+.btn-custom {
+  background-color: #FF8066;
+  color: #FFF6F2;
+}
+</style>
