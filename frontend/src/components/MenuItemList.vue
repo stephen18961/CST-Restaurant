@@ -41,7 +41,7 @@
       <td>Rp{{ item.price }},00</td>
       <td>
         <button @click="" class="btn btn-success">
-              Update
+          Update
         </button>
       </td>
     </tr>

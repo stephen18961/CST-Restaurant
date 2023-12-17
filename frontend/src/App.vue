@@ -24,14 +24,14 @@
             <th scope="col">Image</th>
             <th scope="col">Name</th>
             <th scope="col">Price</th>
-            <th scope="col"></th>
+            <th scope="col">Actions</th>
           </tr>
           <tr v-for="items in orderStore.orderedItems" class="border">
             <td>{{ items.id }}</td>
             <td><img :src="'http://localhost:5000/static/images/' + items.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;"></td>
             <td>{{ items.name }}</td>
             <td>{{ items.price }}</td>
-            <td></td>
+            <td><button @click="removeItemFromOrder(item)" class="btn btn-danger btn-sm">Remove</button></td>
           </tr>
         </table>
       </div>
@@ -55,6 +55,10 @@ export default {
     getTableNumber(data) {
       this.selectedTable = data;
       console.log("Selected table: ", this.selectedTable)
+    },
+    removeItemFromOrder(item) {
+      const orderStore = useOrderStore();
+      orderStore.remove
     }
   }
 }
