@@ -1,28 +1,33 @@
 <template>
-    <div>
-        <h1 class="mt-4 mb-3">Menu Items</h1>
+    <div class="row">
+    <div class="">
+      <h2 class="d-flex justify-content-start text-uppercase">Menu List</h2>
+      <Tables></Tables>
     </div>
+  </div>
 
-    <div class="container flex">
-      <!-- Buttons for filtering by category -->
-      <button
-        @click="menuStore.filterByCategory(null)"
-        :class="{ 'btn btn-secondary mx-1': menuStore.selectedCategory !== null, 'btn btn-primary mx-1': menuStore.selectedCategory === null }"
-      >
-        All
-      </button>
-      <button
-        v-for="category in menuStore.categories"
-        :key="category.id"
-        @click="menuStore.filterByCategory(category.category_id)"
-        :class="{ 'btn btn-secondary mx-1': menuStore.selectedCategory !== category.category_id, 'btn btn-primary mx-1': menuStore.selectedCategory === category.category_id }"
-      >
-        {{ category.name }}
-      </button>
-    </div>
+  <div class="container d-flex align-items-start">
+  <!-- Button for 'All' category -->
+  <button
+    @click="menuStore.filterByCategory(null)"
+    :class="{ 'btn btn-secondary mx-1': menuStore.selectedCategory !== null, 'btn btn-custom mx-1': menuStore.selectedCategory === null }"
+  >
+    All
+  </button>
+
+  <!-- Buttons for other categories -->
+  <button
+    v-for="category in menuStore.categories"
+    :key="category.id"
+    @click="menuStore.filterByCategory(category.category_id)"
+    :class="{ 'btn btn-secondary mx-1': menuStore.selectedCategory !== category.category_id, 'btn btn-custom mx-1': menuStore.selectedCategory === category.category_id }"
+  >
+    {{ category.name }}
+  </button>
+</div>
 
     <!-- Menu Display as Table -->
-    <table class="table">
+    <table class="table" style="margin-top: 2%;">
     <thead>
         <tr>
         <th scope="col">Image</th>
@@ -39,7 +44,7 @@
         <td>{{ item.name }}</td>
         <td>Rp {{ item.price }}</td>
         <td>
-            <button @click="addItemToOrder(item)" class="btn btn-primary">
+            <button @click="addItemToOrder(item)" class="btn" style="background-color: #FF8066; color: #FFF6F2">
                 Add
             </button>
         </td>
@@ -76,3 +81,21 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+* {
+  color: black;
+}
+
+h2 {
+  border-bottom: 1px solid #ECEDED;
+  margin: 2%;
+  padding-bottom: 3%;
+}
+
+.btn-custom {
+  background-color: #FF8066;
+  color: #FFF6F2;
+}
+</style>
