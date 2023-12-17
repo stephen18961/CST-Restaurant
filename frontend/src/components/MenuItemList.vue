@@ -40,7 +40,7 @@
       <td>{{ item.name }}</td>
       <td>Rp{{ item.price }},00</td>
       <td>
-        <button @click="openUpdateModal(item)" class="btn btn-success">
+        <button @click="" class="btn btn-success">
               Update
         </button>
       </td>

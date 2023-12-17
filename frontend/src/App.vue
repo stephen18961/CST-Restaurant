@@ -2,20 +2,37 @@
   <div class="container app">
 
     <div class="row">
-      <div class="col-2">
-        <nav>
-          <router-link to="/">Home</router-link> |
-          <router-link to="/menu">Menu</router-link> |
+      <div class="col-1">
+        <nav class="d-flex flex-column">
+          <router-link to="/">Home</router-link>
+          <router-link to="/menu">Menu</router-link>
           <router-link to="/add">Add</router-link>
         </nav>
       </div>
-      <div class="col-6">
+      <div class="col-7">
         <router-view/>
       </div>
       <div class="col-4 border">
       <h4>#ORDER</h4>
       <div>
-        Selected table: {{ selectedTable }}
+        Selected table: {{ orderStore.currentOpenOrder.table_id }}
+        Orders:
+        <table class="table">
+          <tr>
+            <th scope="col">ItemID</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+          <tr v-for="items in orderStore.orderedItems">
+            <td>{{ items.id }}</td>
+            <td>{{ items.image }}</td>
+            <td>{{ items.name }}</td>
+            <td>{{ items. }}</td>
+            <td></td>
+          </tr>
+        </table>
       </div>
     </div>
     </div>
@@ -23,8 +40,22 @@
 </template>
 
 <script>
+import { useOrderStore } from '@/stores/orders';
+import { onMounted } from 'vue';
+import axios from 'axios';
+
 export default {
-  
+  setup() {
+    const orderStore = useOrderStore();
+
+    return {orderStore}
+  },
+  methods: {
+    getTableNumber(data) {
+      this.selectedTable = data;
+      console.log("Selected table: ", this.selectedTable)
+    }
+  }
 }
 </script>
 
@@ -52,5 +83,9 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+router-link {
+  display: block;
 }
 </style>

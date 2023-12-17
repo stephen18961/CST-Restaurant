@@ -17,10 +17,11 @@
         </div>
     </div>
 </template>
-        
+
   
 <script>
 import { useTableStore } from '@/stores/tables';
+import { useOrderStore } from '@/stores/orders';
 import { onMounted } from 'vue';
 import axios from 'axios'
 
@@ -28,18 +29,19 @@ export default {
   name: 'Tables',
   setup() {
     const tableStore = useTableStore();
+    const orderStore = useOrderStore();
 
     onMounted(() => {
         tableStore.fetchTables();
     });
 
-    return {tableStore,}
+    return {tableStore, orderStore}
   },
   methods: {
     openOrder(table_id) {
         console.log("Opening order from table ", table_id);
-        // send data to parent
-        this.$emit('send-data', table_id);
+        // send data to pinia
+        this.orderStore.currentOpenOrder.table_id = table_id
     }
   }
 }

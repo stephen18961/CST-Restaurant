@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import MenuItemList from '../components/MenuItemList.vue'
 import MenuItemAdd from '../components/MenuItemAdd.vue'
 import MenuItemEdit from '../components/MenuItemEdit.vue'
+import MenuOrder from '@/components/MenuOrder.vue'
 
 const routes = [
   {
@@ -10,7 +11,7 @@ const routes = [
     name: 'home',
     component: HomeView
   },
-  { path: '/menu', name: 'menu', component: MenuItemList },
+  { path: '/menu', name: 'menu', component: MenuOrder },
   { path: '/add', name: 'add', component: MenuItemAdd },
   { path: '/menu_items/:id/edit', name: 'editMenuItem', component: MenuItemEdit },
 ]

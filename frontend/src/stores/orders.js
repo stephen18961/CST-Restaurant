@@ -10,7 +10,11 @@ export const useOrderStore = defineStore({
             table_id : null,
 
         },
-        orders: []
+        orderedItems: [],
     }),
-
+    actions: {
+        addItemToOrder(item) {
+            this.orderedItems.push(item);
+        }
+    }
 })

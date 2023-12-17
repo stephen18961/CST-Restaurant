@@ -1,8 +1,8 @@
 <template>
   <div class="row">
-    <div class="col-8">
+    <div class="">
       <h2>Table List</h2>
-      <Tables @send-data="getTableNumber"></Tables>
+      <Tables></Tables>
     </div>
   </div>
 
@@ -35,11 +35,5 @@ export default {
   components: {
     Tables,
   },
-  methods: {
-    getTableNumber(data) {
-      this.selectedTable = data;
-      console.log("Selected table: ", this.selectedTable)
-    }
-  }
 };
 </script>
