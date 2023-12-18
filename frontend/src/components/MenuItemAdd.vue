@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4">
-    <h1 class="mb-4">Add Menu Item</h1>
+    <h2 class="mb-4 text-uppercase">Add Menu Item</h2>
     <form @submit.prevent="addMenuItem">
       <div class="mb-3">
         <label for="name" class="form-label">Name:</label>
@@ -69,3 +69,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h2 {
+  border-bottom: 1px solid #ECEDED;
+  margin: 2%;
+  padding-bottom: 3%;
+}
+</style>

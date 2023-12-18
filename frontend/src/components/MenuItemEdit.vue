@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4">
-    <h2 class="mb-4">Edit Menu Item</h2>
+    <h2 class="mb-4 text-uppercase">Edit Menu Item</h2>
     <form @submit.prevent="updateMenuItem">
       <div class="mb-3">
         <label for="name" class="form-label">Name:</label>
