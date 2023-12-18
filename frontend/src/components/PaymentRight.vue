@@ -35,6 +35,9 @@ export default {
             try {
                 const response = axios.post('http://localhost:5000/finish_payment', payload);
                 console.log(response.data);
+                // Display alert for 2 seconds
+                alert("Payment successful");
+                this.$router.push('/');        
             } catch (error) {
                 console.error("Error sending invoice_id:", error)
             }

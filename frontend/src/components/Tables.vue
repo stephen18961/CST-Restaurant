@@ -41,7 +41,8 @@ export default {
     openOrder(table_id) {
         console.log("Opening order from table ", table_id);
         // send data to pinia
-        this.orderStore.currentOpenOrder.table_id = table_id
+        this.orderStore.currentOpenOrder.table_id = table_id;
+        this.$router.push('/menu');
     }
   }
 }
