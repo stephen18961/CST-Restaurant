@@ -5,23 +5,22 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Invoice ID</th>
-                    <th>Menu Item ID</th>
-                    <!-- Add other fields as needed -->
+                    <th>Menu Item</th>
+                    <th>Price</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="detail in invoiceStore.invoice_details" :key="detail.id">
-                    <td>{{ detail.id }}</td>
                     <td>{{ detail.invoice_id }}</td>
-                    <td>{{ detail.menu_item_id }}</td>
-                    <!-- Add other fields as needed -->
+                    <td>{{ detail.menu_item.name }}</td>
+                    <td>{{ detail.menu_item.price }}</td>
                 </tr>
             </tbody>
         </table>
 
-        <button @click="toPayment" class="btn btn-success" v-if="invoiceStore.invoice_details != {}">Payment</button>
+        <button @click="toPayment" class="btn btn-success" v-if="invoiceStore.invoice_details.length != 0">Payment</button>
+        <button @click="cancel" class="btn btn-danger" v-if="invoiceStore.invoice_details.length != 0">Close Details</button>
     </div>
 </template>
 
@@ -47,6 +46,11 @@ export default {
             const invoice_id = invoiceStore.invoice_details[0].invoice_id;
             invoiceStore.invoice_id = invoice_id;
             this.$router.push('/payment')
+            invoiceStore.fetchInvoices();
+            invoiceStore.selectInvoice();
+        },
+        cancel() {
+            this.invoiceStore.invoice_details = [];
         }
     }
 };

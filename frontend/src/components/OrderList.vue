@@ -11,7 +11,7 @@
                     <th>Table Number</th>
                     <th>Created At</th>
                     <th>Total Amount</th>
-                    <th>Status ID</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -21,7 +21,7 @@
                     <td>{{ invoice.table_number }}</td>
                     <td>{{ invoice.created_at }}</td>
                     <td>{{ invoice.total_amount }}</td>
-                    <td>{{ invoice.status_id }}</td>
+                    <td>{{ invoice.status.status }}</td>
                     <td><button @click="invoiceStore.showInvoiceDetail(invoice.id)" class="btn btn-success">Details</button></td>
                 </tr>
             </tbody>

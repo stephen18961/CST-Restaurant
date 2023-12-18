@@ -26,8 +26,8 @@ export default {
     },
     methods: {
         confirmPayment() {
-            return
-        }
+            
+        },
     }
 };
 </script>
