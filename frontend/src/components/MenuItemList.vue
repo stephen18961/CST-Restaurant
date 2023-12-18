@@ -40,46 +40,40 @@
       <td>{{ item.name }}</td>
       <td>Rp{{ item.price }},00</td>
       <td>
-        <button @click="" class="btn btn-success">
+        <button @click="updateMenuItem(item.id)" class="btn btn-success">
           Update
         </button>
       </td>
     </tr>
   </tbody>
 </table>
-
-<!-- <div>
-      <h1>Menu Items</h1>
-      <ul>
-        <li v-for="item in menuStore.filteredMenuItems" :key="item.id">
-          <img :src="'http://localhost:5000/static/images/' + item.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;">
-          {{ item.name }} - {{ item.price }}
-          <router-link :to="{ name: 'editMenuItem', params: { id: item.id }}">Edit</router-link>
-          <button @click="deleteMenuItem(item.id)">Delete</button>
-        </li>
-      </ul>
-</div> -->
-
-
-  </div>
+</div>
 </template>
 
 <script>
 import { useMenuStore } from '@/stores/menu';
 import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   setup() {
     const menuStore = useMenuStore();
+    const router = useRouter();
 
     // Call the actions when the component is mounted
     onMounted(() => {
       menuStore.fetchCategories();
       menuStore.fetchMenuItems();
     });
+    // Function to handle the update button click
+    const updateMenuItem = (itemId) => {
+      // Navigate to MenuItemEdit.vue with the item ID as a parameter
+      router.push({ name: 'editMenuItem', params: { id: itemId } });
+    };
 
     return {
       menuStore,
+      updateMenuItem,
     };
   },
 };
