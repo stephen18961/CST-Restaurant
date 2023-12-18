@@ -15,7 +15,7 @@
           <!-- <router-link to="/payment" class="icons mb-2"><img src="@/assets/payment.svg" alt="" id="icons"><p class="text-uppercase">Payment</p></router-link> -->
           <div v-if="currentRoute === '/payment'" class="icons mb-2 router-link-exact-active"><img src="@/assets/payment.svg" alt="" id="icons"><p class="text-uppercase">Payment</p></div>
           <div v-else class="icons mb-2"><img src="@/assets/payment.svg" alt="" id="icons"><p class="text-uppercase">Payment</p></div>
-          <router-link to="/admin" class="icons mb-2">Admin</router-link>
+          <router-link to="/admin" class="icons mb-2"><img src="@/assets/admin.svg" alt="" id="icons"><p class="text-uppercase">Admin</p></router-link>
         </nav>
       </div>
       <div class="col-7">

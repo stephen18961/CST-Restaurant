@@ -2,13 +2,14 @@
 
 <template>
   <div>
-    <h1 class="mt-4 mb-3">Menu Items</h1>
+    <h2 class="d-flex justify-content-start text-uppercase">Menu Items</h2>
 
-    <div class="container flex">
-      <!-- Buttons for filtering by category -->
+    <div class="container d-flex mb-3">
+      <div class="me-auto p-2">
+        <!-- Buttons for filtering by category -->
       <button
         @click="menuStore.filterByCategory(null)"
-        :class="{ 'btn btn-secondary mx-1': menuStore.selectedCategory !== null, 'btn btn-primary mx-1': menuStore.selectedCategory === null }"
+        :class="{ 'btn btn-secondary mx-1': menuStore.selectedCategory !== null, 'btn btn-custom mx-1': menuStore.selectedCategory === null }"
       >
         All
       </button>
@@ -16,13 +17,14 @@
         v-for="category in menuStore.categories"
         :key="category.id"
         @click="menuStore.filterByCategory(category.category_id)"
-        :class="{ 'btn btn-secondary mx-1': menuStore.selectedCategory !== category.category_id, 'btn btn-primary mx-1': menuStore.selectedCategory === category.category_id }"
+        :class="{ 'btn btn-secondary mx-1': menuStore.selectedCategory !== category.category_id, 'btn btn-custom mx-1': menuStore.selectedCategory === category.category_id }"
       >
         {{ category.name }}
       </button>
-      <button @click="goToAddMenuItem" class="btn btn-danger mx-1">
-      Add Menu Item
-      </button>
+      </div>
+      <div class="p-2">
+        <button @click="goToAddMenuItem" class="btn mx-1 btn-primary">Add Menu Item</button>
+      </div>
     </div>
 
 <!-- Menu Display as Table -->
@@ -41,7 +43,7 @@
         <img :src="'http://localhost:5000/static/images/' + item.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;">
       </td>
       <td>{{ item.name }}</td>
-      <td>Rp{{ item.price }},00</td>
+      <td>Rp {{ item.price }}</td>
       <td>
         <button @click="updateMenuItem(item.id)" class="btn btn-success">
           Update
@@ -88,6 +90,18 @@ export default {
 </script>
 
 <style scoped>
-/* Add your component styles here */
-/* You can add additional custom styles here if needed */
+* {
+  color: black;
+}
+
+h2 {
+  border-bottom: 1px solid #ECEDED;
+  margin: 2%;
+  padding-bottom: 3%;
+}
+
+.btn-custom {
+  background-color: #FF8066;
+  color: #FFF6F2;
+}
 </style>
