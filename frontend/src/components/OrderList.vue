@@ -21,8 +21,10 @@
                     <td>{{ invoice.table_number }}</td>
                     <td>{{ invoice.created_at }}</td>
                     <td>{{ invoice.total_amount }}</td>
-                    <td>{{ invoice.status.status }}</td>
-                    <td><button @click="invoiceStore.showInvoiceDetail(invoice.id)" class="btn btn-success">Details</button></td>
+                    <td v-if="invoice.status.status === 'Open'" class="fw-bolder status-open">{{ invoice.status.status }}</td>
+                    <td v-else class="fw-bolder text-danger">{{ invoice.status.status }}</td>
+                    <!-- <td>{{ invoice.status.status }}</td> -->
+                    <td><button @click="invoiceStore.showInvoiceDetail(invoice.id)" class="btn" style="background-color: #FF8066; color: #FFF6F2">Details</button></td>
                 </tr>
             </tbody>
         </table>
@@ -61,5 +63,9 @@ h2 {
 .btn-custom {
   background-color: #FF8066;
   color: #FFF6F2;
+}
+
+.status-open {
+    color: #00C26E;
 }
 </style>
