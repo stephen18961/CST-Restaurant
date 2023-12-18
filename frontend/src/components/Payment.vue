@@ -50,6 +50,7 @@
         cancel() {
             this.invoiceStore.selected_invoice = {};
             this.invoiceStore.invoice_details = {};
+            this.$router.push('/orders')
         }
     }
   };

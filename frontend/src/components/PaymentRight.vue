@@ -12,6 +12,7 @@
 <script>
 import { useInvoiceStore } from '@/stores/invoice';
 import { onMounted } from 'vue';
+import axios from 'axios';
 
 export default {
     setup() {
@@ -26,7 +27,17 @@ export default {
     },
     methods: {
         confirmPayment() {
-            
+            const invoiceStore = useInvoiceStore();
+
+            const payload = {'invoice_id' : invoiceStore.invoice_id};
+            console.log("Altering Invoice: ", payload);
+
+            try {
+                const response = axios.post('http://localhost:5000/finish_payment', payload);
+                console.log(response.data);
+            } catch (error) {
+                console.error("Error sending invoice_id:", error)
+            }
         },
     }
 };

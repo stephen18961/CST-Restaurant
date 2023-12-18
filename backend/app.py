@@ -201,6 +201,32 @@ def get_invoice(invoice_id):
 
     except Exception as e:
         return jsonify({'message': str(e)}), 500
+    
+# Menu Items Route Handlers
+@app.route('/finish_payment', methods=['POST'])
+def finish_payment():
+    response_object = {'status': 'success'}
+    if request.method == 'POST':
+        invoice_id = request.json['invoice_id']
+
+        # Alter Invoice Status
+        invoice = Invoice.query.filter_by(id=invoice_id).first()
+        invoice.status_id = 3
+
+        # Alter Table Status
+        table_number = invoice.table_number
+        table = TableStatus.query.filter_by(id=table_number).first()
+        table.occupied = 0
+
+        # Add new transaction
+        new_transaction = Transaction(invoice_id=invoice_id, payment_method='CASH', amount_paid=invoice.total_amount)
+        db.session.add(new_transaction)
+
+        # Commit action!
+        db.session.commit()
+        response_object['message'] = 'Transaction done.'
+
+    return jsonify(response_object)
 
 if __name__ == "__main__":
     app.run(debug=True)
