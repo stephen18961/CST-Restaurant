@@ -19,7 +19,6 @@ const routes = [
   { path: '/orders', name: 'order', component:OrderList},
   { path: '/payment', name: 'payment', component:Payment},
   { path: '/admin', name: 'admin', component:MenuItemList},
-  { path: '/admin/add', name: 'admin', component:MenuItemList, MenuItemAdd},
   { path: '/edit/:id', name: 'editMenuItem', component:MenuItemEdit},
   { path: '/add', name: 'addMenuItem', component:MenuItemAdd },
 ]
