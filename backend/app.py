@@ -175,7 +175,7 @@ def get_invoice_details(invoice_id):
         detail_data = {
             'id': detail.id,
             'invoice_id': detail.invoice_id,
-            'menu_item': menu_data 
+            'menu_item': menu_data,
         }
         details_list.append(detail_data)
         print(details_list)

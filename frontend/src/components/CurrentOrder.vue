@@ -90,7 +90,7 @@ export default {
         // Optionally, you can clear the orderedItems array after successful orders
         orderStore.clearOrderedItems();
 
-        this.$router.push('/orders')
+        this.$router.push('/')
       } catch (error) {
         console.error('Error posting order:', error);
         // Handle the error as needed

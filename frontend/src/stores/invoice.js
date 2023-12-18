@@ -10,6 +10,7 @@ export const useInvoiceStore = defineStore({
         invoice_details: {},
         invoice_id: null,
         selected_invoice: {},
+        current_status: null,
     }),
     actions: {
         fetchInvoices() {
@@ -21,10 +22,11 @@ export const useInvoiceStore = defineStore({
                 console.error('Error fetching invoices:', error);
               });
         },
-        showInvoiceDetail(invoice_id) {
+        showInvoiceDetail(invoice_id, invoice_status) {
             axios.get(`http://localhost:5000/invoices/${invoice_id}/details`)
               .then(response => {
                 this.invoice_details = response.data.invoice_details;
+                this.current_status = invoice_status;
                 console.log(this.invoice_details)
               })
               .catch(error => {

@@ -3,8 +3,16 @@
       <!-- Invoice Section -->
       <div>
         <h2>Invoice</h2>
-        <div v-for="col in invoiceStore.selected_invoice" :key="col">
-          {{ col }}
+        <div>
+          <div>
+            Created at: {{ invoiceStore.selected_invoice.created_at }}
+          </div>
+          <div>
+            Invoice ID: {{ invoiceStore.selected_invoice.id }}
+          </div>
+          <div>
+            Table No:   {{ invoiceStore.selected_invoice.table_number }}
+          </div>
         </div>
       </div>
   

@@ -24,7 +24,9 @@
                     <td v-if="invoice.status.status === 'Open'" class="fw-bolder status-open">{{ invoice.status.status }}</td>
                     <td v-else class="fw-bolder text-danger">{{ invoice.status.status }}</td>
                     <!-- <td>{{ invoice.status.status }}</td> -->
-                    <td><button @click="invoiceStore.showInvoiceDetail(invoice.id)" class="btn" style="background-color: #FF8066; color: #FFF6F2">Details</button></td>
+                    <td>
+                        <button @click="invoiceStore.showInvoiceDetail(invoice.id, invoice.status.id)" class="btn" style="background-color: #FF8066; color: #FFF6F2">Details</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

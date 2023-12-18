@@ -19,8 +19,8 @@
             </tbody>
         </table>
 
-        <div class="container">
-            <button @click="toPayment" class="btn btn-success m-2" v-if="invoiceStore.invoice_details.length != 0">Payment</button>
+        <div class="container"> 
+            <button @click="toPayment" class="btn btn-success m-2" v-if="invoiceStore.current_status == 1">Payment </button>
             <button @click="cancel" class="btn btn-danger" v-if="invoiceStore.invoice_details.length != 0">Close Details</button>
         </div>
     </div>
@@ -38,6 +38,7 @@ export default {
 
         onMounted(() => {
             invoiceStore.fetchInvoices();
+            console.log(invoiceStore.selected_invoice)
         });
 
         return { invoiceStore };
