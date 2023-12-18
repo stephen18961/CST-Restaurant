@@ -45,7 +45,7 @@
       <td>{{ item.name }}</td>
       <td>Rp {{ item.price }}</td>
       <td>
-        <button @click="updateMenuItem(item.id)" class="btn btn-success">
+        <button @click="updateMenuItem(item)" class="btn btn-success">
           Update
         </button>
       </td>
@@ -59,6 +59,7 @@
 import { useMenuStore } from '@/stores/menu';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAdminStore} from '@/stores/admin'
 
 export default {
   setup() {
@@ -71,9 +72,11 @@ export default {
       menuStore.fetchMenuItems();
     });
     // Function to handle the update button click
-    const updateMenuItem = (itemId) => {
+    const updateMenuItem = (item) => {
       // Navigate to MenuItemEdit.vue with the item ID as a parameter
-      router.push({ name: 'editMenuItem', params: { id: itemId } });
+      const adminStore = useAdminStore();
+      adminStore.editForm = item;
+      console.log(adminStore.editForm)
     };
 
     const goToAddMenuItem = () => {
