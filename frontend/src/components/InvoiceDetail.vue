@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h1>Invoice Details</h1>
+        <h2 class="text-uppercase">Invoice Details</h2>
 
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>Invoice ID</th>
@@ -19,8 +19,10 @@
             </tbody>
         </table>
 
-        <button @click="toPayment" class="btn btn-success" v-if="invoiceStore.invoice_details.length != 0">Payment</button>
-        <button @click="cancel" class="btn btn-danger" v-if="invoiceStore.invoice_details.length != 0">Close Details</button>
+        <div class="container">
+            <button @click="toPayment" class="btn btn-success m-2" v-if="invoiceStore.invoice_details.length != 0">Payment</button>
+            <button @click="cancel" class="btn btn-danger" v-if="invoiceStore.invoice_details.length != 0">Close Details</button>
+        </div>
     </div>
 </template>
 
@@ -55,3 +57,20 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+* {
+  color: black;
+}
+
+h2 {
+  border-bottom: 1px solid #ECEDED;
+  margin: 2%;
+  padding-bottom: 3%;
+}
+
+.btn-custom {
+  background-color: #FF8066;
+  color: #FFF6F2;
+}
+</style>
