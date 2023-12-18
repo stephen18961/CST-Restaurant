@@ -20,6 +20,7 @@ const routes = [
   { path: '/payment', name: 'payment', component:Payment},
   { path: '/admin', name: 'admin', component:MenuItemList},
   { path: '/edit/:id', name: 'editMenuItem', component:MenuItemEdit},
+  { path: '/add', name: 'addMenuItem', component:MenuItemAdd},
 ]
 
 const router = createRouter({
