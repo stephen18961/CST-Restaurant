@@ -99,7 +99,6 @@ def get_categories():
 @app.route('/tables', methods=['GET'])
 def get_tables():
     tables = TableStatus.query.all()
-    print(tables)
     tables_list = [{'table_id' : table.id, 'occupied': False if table.occupied == 0 else True} for table in tables]
     return jsonify({'tables_list': tables_list})
 
@@ -138,16 +137,20 @@ def get_invoices():
     invoices_list = []
 
     for invoice in invoices:
+        status = Status.query.get(invoice.status_id)
+        status_data = {
+            'id': status.id,
+            'status': status.status
+        }
+
         invoice_data = {
             'id': invoice.id,
             'table_number': invoice.table_number,
-            'created_at': invoice.created_at.isoformat(),  # Convert timestamp to string
+            'created_at': invoice.created_at.isoformat(),
             'total_amount': invoice.total_amount,
-            'status_id': invoice.status_id
+            'status': status_data  # Include status information in the invoice_data
         }
         invoices_list.append(invoice_data)
-
-    # print(invoices_list)
     return jsonify({'invoices': invoices_list})
 
 # Route to fetch invoice details based on invoice ID
@@ -160,14 +163,22 @@ def get_invoice_details(invoice_id):
 
     details_list = []
     for detail in invoice_details:
+        menu_item = MenuItem.query.get(detail.menu_item_id)
+        menu_data = {
+            'id': menu_item.id,
+            'name': menu_item.name,
+            'price': menu_item.price,
+            'category_id': menu_item.category_id,
+            'image': menu_item.image
+        }
+
         detail_data = {
             'id': detail.id,
             'invoice_id': detail.invoice_id,
-            'menu_item_id': detail.menu_item_id
-            # Add other fields as needed
+            'menu_item': menu_data 
         }
         details_list.append(detail_data)
-
+        print(details_list)
     return jsonify({'invoice_details': details_list})
 
 # Route to fetch an invoice based on invoice ID
@@ -186,8 +197,6 @@ def get_invoice(invoice_id):
             'total_amount': invoice.total_amount,
             'status_id': invoice.status_id
         }
-
-        print(invoice_data)
         return jsonify({'invoice': invoice_data})
 
     except Exception as e:
