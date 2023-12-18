@@ -35,8 +35,8 @@ export default {
     return {
       newMenuItem: {
         name: '',
-        price: 0,
-        category_id: 0,
+        price: null,
+        category_id: null,
         image: '',
       },
     };

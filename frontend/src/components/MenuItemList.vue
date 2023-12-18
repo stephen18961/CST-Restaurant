@@ -20,6 +20,9 @@
       >
         {{ category.name }}
       </button>
+      <button @click="goToAddMenuItem" class="btn btn-danger mx-1">
+      Add Menu Item
+      </button>
     </div>
 
 <!-- Menu Display as Table -->
@@ -71,9 +74,14 @@ export default {
       router.push({ name: 'editMenuItem', params: { id: itemId } });
     };
 
+    const goToAddMenuItem = () => {
+      router.push({ name: 'addMenuItem' });
+    };
+
     return {
       menuStore,
       updateMenuItem,
+      goToAddMenuItem,
     };
   },
 };
