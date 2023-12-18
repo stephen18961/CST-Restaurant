@@ -18,7 +18,8 @@ const routes = [
   { path: '/menu_items/:id/edit', name: 'editMenuItem', component: MenuItemEdit },
   { path: '/orders', name: 'order', component:OrderList},
   { path: '/payment', name: 'payment', component:Payment},
-  
+  { path: '/admin', name: 'admin', component:MenuItemList},
+  { path: '/edit/:id', name: 'editMenuItem', component:MenuItemEdit},
 ]
 
 const router = createRouter({
