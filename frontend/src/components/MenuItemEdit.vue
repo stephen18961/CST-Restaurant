@@ -63,7 +63,8 @@ export default {
     },
     async deleteMenuItem() {
       try {
-        const itemId = this.$route.params.id;
+        const adminStore = useAdminStore();
+        const itemId = adminStore.editForm.id;
         await axios.delete(`http://localhost:5000/menu_items/${itemId}`);
         console.log('Menu item deleted successfully');
         // Optionally, you can navigate back to the menu list after a successful delete
