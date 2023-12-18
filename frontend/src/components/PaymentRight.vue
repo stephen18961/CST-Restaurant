@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h3>Total Price</h3>
-        {{ invoiceStore.selected_invoice.total_amount }}
+        <h2 class="text-uppercase text-black">Total Price</h2>
+        <h3>Total: Rp {{ invoiceStore.selected_invoice.total_amount }}</h3>
     </div>
     <div>
         <button @click="confirmPayment" class="btn btn-success">Pay</button>
@@ -45,3 +45,15 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+* {
+  color: black;
+}
+
+h2 {
+  border-bottom: 1px solid #ECEDED;
+  margin: 2%;
+  padding-bottom: 3%;
+}
+</style>

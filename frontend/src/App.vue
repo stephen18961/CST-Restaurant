@@ -25,9 +25,11 @@
       <div class="col-4" style="border-left:1px solid #ECEDED">
       
       <div>
-        <span v-if="currentRoute === '/menu'">Selected table: {{ orderStore.currentOpenOrder.table_id }}</span>
-        <span v-if="currentRoute === '/'">Selected table: {{ orderStore.currentOpenOrder.table_id }}</span>
-        <hr>
+        <div class="me-auto p-3" style="border-bottom: 1px solid #ECEDED;">
+          <span v-if="currentRoute === '/'" class="fs-2 text-black text-uppercase">Selected Table: {{ orderStore.currentOpenOrder.table_id }}</span>
+          <span v-if="currentRoute === '/menu'" class="fs-2 text-black text-uppercase">Selected Table: {{ orderStore.currentOpenOrder.table_id }}</span>
+        </div>
+
         <CurrentOrder v-if="currentRoute === '/menu'"></CurrentOrder>
         <!-- <OrderDetails v-if="currentRoute ==='/orders' "></OrderDetails> -->
         <InvoiceDetail v-if="currentRoute === '/orders'"></InvoiceDetail>
@@ -84,7 +86,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  /* color: #2c3e50; */
 }
 
 .app {

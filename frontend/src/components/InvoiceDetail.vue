@@ -14,7 +14,7 @@
                 <tr v-for="detail in invoiceStore.invoice_details" :key="detail.id">
                     <td>{{ detail.invoice_id }}</td>
                     <td>{{ detail.menu_item.name }}</td>
-                    <td>{{ detail.menu_item.price }}</td>
+                    <td>Rp {{ detail.menu_item.price }}</td>
                 </tr>
             </tbody>
         </table>

@@ -18,7 +18,7 @@
     </div>
 </template>
 
-  
+
 <script>
 import { useTableStore } from '@/stores/tables';
 import { useOrderStore } from '@/stores/orders';

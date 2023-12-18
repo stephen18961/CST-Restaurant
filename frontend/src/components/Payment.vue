@@ -2,7 +2,7 @@
     <div class="container mt-4">
       <!-- Invoice Section -->
       <div>
-        <h2>Invoice</h2>
+        <h2 class="text-uppercase text-black">Invoice</h2>
         <div>
           <div>
             Created at: {{ invoiceStore.selected_invoice.created_at }}
@@ -18,7 +18,7 @@
   
       <!-- Invoice Details Section -->
       <div class="mt-4">
-        <h2>Invoice Details</h2>
+        <!-- <h2 class="text-uppercase text-black">Invoice Details</h2> -->
         <table class="table table-bordered">
           <thead class="thead-dark">
             <tr>

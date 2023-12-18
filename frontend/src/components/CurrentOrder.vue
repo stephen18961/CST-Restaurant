@@ -1,21 +1,19 @@
 <template>
-    <h4>#ORDER</h4>
-
-    Orders:
+    <h4 class="m-4">#ORDER</h4>
     <table class="table">
         <tr>
-        <th scope="col">ItemID</th>
-        <th scope="col">Image</th>
-        <th scope="col">Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Actions</th>
+          <th scope="col">ItemID</th>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Actions</th>
         </tr>
         <tr v-for="items in orderStore.orderedItems" class="border">
-        <td>{{ items.id }}</td>
-        <td><img :src="'http://localhost:5000/static/images/' + items.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;"></td>
-        <td>{{ items.name }}</td>
-        <td>{{ items.price }}</td>
-        <td><button @click="removeItem(items.id)" class="btn btn-danger btn-sm">Remove</button></td>
+          <td>{{ items.id }}</td>
+          <td><img :src="'http://localhost:5000/static/images/' + items.image" alt="Menu Item Image" class="img-fluid" style="height: 100px;"></td>
+          <td>{{ items.name }}</td>
+          <td>{{ items.price }}</td>
+          <td><button @click="removeItem(items.id)" class="btn btn-danger btn-sm">Remove</button></td>
         </tr>
     </table>
 
