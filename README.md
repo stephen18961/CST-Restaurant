@@ -1,6 +1,11 @@
 # CST-Restaurant
 Simple Restaurant Web Project
 
+![usecase1](usecase1.png)
+![usecase2](usecase2.png)
+
+## How to run the web application
+
 Three components must be running:
 1. MySQL
 2. Flask server
