@@ -3,13 +3,19 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_migrate import Migrate
+import os
 # from models import Category, MenuItem, OrderStatus, Order, OrderItem, Transaction
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@127.0.0.1/cstresto'
+
+if os.getenv('FLASK_ENV') == 'docker':
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:stephen@resto_db/cstresto'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@127.0.0.1/cstresto'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-CORS(app, resources={r"/*":{'origins':"*"}})
+CORS(app, resources={r"/*":{'origins':"http://localhost:8080"}})
 # CORS(app, resources={r'/*':{'origins': 'http://localhost:8080',"allow_headers": "Access-Control-Allow-Origin"}})
 app.config.from_object(__name__)
 migrate = Migrate(app, db)

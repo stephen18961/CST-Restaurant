@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  db:
+    image: mysql
+    container_name: resto_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=stephen
+      - MYSQL_DATABASE=cstresto
+    ports:
+      - "3306:3306"
+    volumes:
+      - restodb:/var/lib/mysql
+    networks:
+      - resto_net
+
+  backend:
+    build: ./backend
+    container_name: resto_back
+    environment:
+      - FLASK_ENV=docker
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    networks:
+      - resto_net
+    volumes:
+      - ./backend:/app  # Bind mount the local backend directory
+      - /app/__pycache__  # Prevents overwriting 
+
+  frontend:
+    build: ./frontend
+    container_name: resto_front
+    ports:
+      - "8080:8080"
+    networks:
+      - resto_net
+    volumes:
+      - ./frontend:/app  # Bind mount the local frontend directory
+      - /app/node_modules  # Prevents overwriting node_modules
+
+  pma:
+    image: phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_PORT=80
+    ports:
+      - "9090:80"
+    networks:
+      - resto_net
+    depends_on:
+      - db
+
+networks:
+  resto_net:
+
+volumes:
+  restodb:
