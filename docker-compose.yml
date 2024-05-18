@@ -7,8 +7,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=stephen
       - MYSQL_DATABASE=cstresto
-    ports:
-      - "3306:3306"
+    # ports:
+    #   - "3306:3306"
     volumes:
       - restodb:/var/lib/mysql
     networks:
@@ -21,6 +21,7 @@ services:
       - FLASK_ENV=docker
     depends_on:
       - db
+    restart: on-failure
     ports:
       - "5000:5000"
     networks:
@@ -34,8 +35,6 @@ services:
     container_name: resto_front
     ports:
       - "8080:8080"
-    networks:
-      - resto_net
     volumes:
       - ./frontend:/app  # Bind mount the local frontend directory
       - /app/node_modules  # Prevents overwriting node_modules
